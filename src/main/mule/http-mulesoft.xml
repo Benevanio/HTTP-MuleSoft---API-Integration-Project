@@ -4,15 +4,15 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
-	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="997e30a8-b63c-43e7-ae19-e76a8e4e0f74">
-		<http:request-connection protocol="HTTPS" host="reqres.in" />
-	</http:request-config>
-	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="beeae1bb-3cb3-4153-9a2f-b5aa719b06a2" >
-		<http:listener-connection host="0.0.0.0" port="8081" />
-	</http:listener-config>
-	<flow name="http-mulesoftFlow" doc:id="7f98a624-91f9-4097-9538-6d626197debd" >
-		<http:listener doc:name="Listener" doc:id="4f94f871-96fa-41a9-9474-9716f58d4c3a" config-ref="HTTP_Listener_config" path="/api"/>
-		<http:request method="GET" doc:name="Request" doc:id="771aa124-8641-4b29-b255-1111cbb0f043" config-ref="HTTP_Request_configuration" path="/api/users"/>
+	<flow name="regres-Request-external_api" doc:id="7f98a624-91f9-4097-9538-6d626197debd" >
+		<http:listener doc:name="Listener" doc:id="4f94f871-96fa-41a9-9474-9716f58d4c3a" config-ref="Global_HTTP" path="/api"/>
+		<http:request method="GET" doc:name="Request" doc:id="771aa124-8641-4b29-b255-1111cbb0f043" path="/api/users" config-ref="HTTP_REQUEST_CONFIG">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x-api-key" : "reqres-free-v1"
+}]]]></http:headers>
+		</http:request>
 		<logger level="INFO" doc:name="Logger" doc:id="e4e4b157-bb7b-4edc-b32d-2a97d9eb5079" message='"Payload" #[payload]'/>
 	</flow>
 </mule>
