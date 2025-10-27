@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="eventsFlow" doc:id="6f41f801-ec28-42b7-a283-9bc86b5dd608" >
+		<http:listener doc:name="Listener" doc:id="20d8843f-1e23-43ab-b37b-92d0ee09f86a" config-ref="Global_HTTP" path="/muleEvents"/>
+		<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	"name":"Benevanio",&#10;	"Age": 25,&#10;	"Salary": 2500,&#10;	"Location": "Porto Da Folha - SE"&#10;}]' doc:name="Set Payload" doc:id="6cca8ba4-c3e0-46bf-a83b-0336e878b9a8" />
+		<logger level="INFO" doc:name="Payload" doc:id="916ba234-625e-4ff7-bdb3-701a4c0fed25" message="#[payload]"/>
+	</flow>
+</mule>
