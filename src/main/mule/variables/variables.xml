@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="variablesFlow" doc:id="2856b7df-73ce-411c-b354-92c3836ca818" >
+		<http:listener doc:name="Listener" doc:id="bd06a5e2-c1af-48b3-af13-7bfe3f945e1e" config-ref="Global_HTTP" path="/vars" allowedMethods="POST"/>
+		<set-variable value="#[vars.name]" doc:name="Set Variable" doc:id="31284b4c-8716-4cbe-bf44-0727e0c64530" variableName="name"/>
+		<set-variable value="#[vars.job]" doc:name="Set Variable" doc:id="d9fbf7dd-8aa7-4b46-8a86-9bccc7efa163" variableName="job"/>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="ec6c34bd-d6ad-474b-82d1-979ae2e70d6f" />
+		<logger level="INFO" doc:name="payload" doc:id="232b5c8d-a322-469a-9051-b2d207b622b8" message='#[%dw 2.0&#10;output application/json&#10;---&#10;&#10;{&#10;	"Payload": payload&#10;}]' />
+	</flow>
+</mule>
