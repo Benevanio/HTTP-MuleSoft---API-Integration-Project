@@ -36,7 +36,7 @@ output application/json
 		<ee:transform doc:name="typeOf" doc:id="357e92b6-1060-4842-a405-ccc34e3985c3" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
+output application/dw
 ---
 {
 	"k1": typeOf("Bene"),
