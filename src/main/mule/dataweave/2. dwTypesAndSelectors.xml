@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="basicTypesAndTypeOf" doc:id="8f797eab-961b-4fe7-a1e4-0a4e915c10ad" >
+		<ee:transform doc:name="basicTypes" doc:id="7f64018f-db49-42a2-9df1-406c061c38b0" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"string": "This is String",
+	"number": {
+		"k1": 1,
+		"k2": 2
+	},
+	"boolean":{
+		"k1": true,
+		"k2": false
+	},
+	"array": [ 
+		//This is array of objects
+		{
+			"k1":1
+		}
+	],
+	"object": { 
+		//This is object of array
+		"k1": []
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="typeOf" doc:id="357e92b6-1060-4842-a405-ccc34e3985c3" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"k1": typeOf("manju"),
+	"k2": typeOf(1),
+	"k3": typeOf([]),
+	"k4": typeOf({}),
+	"k5": typeOf(false),
+	"k6": typeOf(Null),
+	"k7": typeOf(null),
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dwSelector" doc:id="83cf87f1-0dae-442f-9b30-6fc3ff9f96ee" >
+		<ee:transform doc:name="SingleSelector" doc:id="c9caf01d-264e-494a-8181-31cf41b7cdb4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output json
+---
+{
+	"k1": upper(payload.firstName)
+
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="RnageSelector" doc:id="1f194118-f074-4333-9154-ca9bc299f7ea" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+/*
+ * [0] "INDIA" [-4]
+ * [1] "CHINA" [-3]
+ * [2] "GERMANY" [-2]
+ * [3] "MALAYSIA" [-1]
+ */
+---
+{
+	/* The below 2 are index K1 and K2 value selector which 
+	 * can have both positive and negative values
+	 */
+	"K1": payload[3],
+	"K2": payload[-1],
+	"K3": payload[2 to 3],
+	"K4": payload[-1 to -2]	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="MultiValue_Des_Selector" doc:id="f0faa3db-be94-478a-9a33-82f25e5aa3e6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+//MultiValue selector
+---
+{
+	k1: payload.*k1
+	//k2: payload.*k2."k2.1",
+	//k3: payload.k3[0],
+	//k4: payload.."k4.2.1"
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="dwOperators" doc:id="ef054059-b773-4473-a427-9f8abdbef83b" >
+		<ee:transform doc:name="Prepend_Append_Remove_Operators" doc:id="73bf2c12-0be0-4017-8aa4-972370b49187" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"k1": 1 >> [2,3]
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

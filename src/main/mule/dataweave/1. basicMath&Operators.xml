@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="BasicMathAndArray" doc:id="2f1eec56-4b09-4b3b-9a59-6ac904f3e1e0" >
+		<ee:transform doc:name="BasicMathOperations&amp;Array" doc:id="d49212c9-10a0-476e-a594-7974288af4b2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/dw
+---
+{
+	"add": 2+2,
+	"sub": 2-2,
+	"mul": 2*2,
+	"div": 45/98,
+	"array-1": [1,2,3]-1,
+	"array+4": [1,2,3]+4,
+	"objectAdd": {
+		"key1": 1,
+		"key2": 2,
+	},
+	"objectAdd": {
+		"key1": 1,
+		"key2": 2,
+	} - "key1"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="Operators" doc:id="06820ab7-d745-4d0e-bd5c-93913dcb1013" >
+		<ee:transform doc:name="Equality_Relational" doc:id="0c687311-459d-4de1-9dda-694cfb476c1d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/dw
+---
+{
+	"K1": 1<1,
+	"K2": 1<=1,
+	"K3": 56 > 98,
+	"K4": 876 >= 876.0,
+	"K5": 1 == 1,
+	"K6": "manju" == "manju",
+	"K7": 12 ~= "12"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Logical" doc:id="fb229f86-2797-4c99-a6b9-ca83e403c32c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/dw
+---
+{
+	"AND_Operator":{
+		"key1": true and true,
+		"key2": (1+1==2) and (1*3==3),
+		"key3": (1==2) and (3==3)
+	},
+	"OR_Operator": {
+		"key1": true or true,
+		"key2": (1+1==2) or (1*3==3),
+		"key3": (1==2) or (3==3),
+		"key4": false or true
+	},
+	"NOT_Operator":{		
+		"key1": not true,
+		"key2": !false,
+		"key3": not ((1+1==2) or (1*3==3))
+	},
+	"COMBINENOT_Operator":{
+		"key1": not (1+1==2) or (1*3==3),
+		"key2": true and not true
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

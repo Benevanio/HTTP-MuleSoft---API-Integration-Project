@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="scopleFlowConstructsFlow" doc:id="a735fd3d-9798-400c-a566-eeca85188600" >
+		<ee:transform doc:name="doConstructs101" doc:id="119e0d1f-86c4-47b6-bfef-5d066511a553" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/dw
+var fname="Mule"
+var lname="Soft"
+---
+do{
+	var concatenateFL = fname ++ lname
+	---
+	concatenateFL
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="doConstructs102" doc:id="d1c53027-0bfa-45f7-af76-b0891767607a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/dw
+var fname="Mule"
+var lname="Soft"
+
+//As do requires, name value pair
+var x = do{
+	var concatenateFL = fname ++ lname
+	var x1 = 10
+	var x2 = 20
+	---
+	x1 + x2
+}
+---
+x]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="ifElseAndElseif" doc:id="9f819849-dd5f-417c-9381-5c379e2c6d40" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/dw
+---
+{
+	k1: if(payload.age >= 60 and payload.age <= 100)
+			payload.name
+			
+		else if(payload.age > 100 and payload.age <= 1000)
+			payload.location
+			
+		else
+			payload.id
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

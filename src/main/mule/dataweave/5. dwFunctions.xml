@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="5._dwFunctionsFlow" doc:id="8a0ff64c-fc7c-4f1b-b258-2cb663199133" >
+		<ee:transform doc:name="CreateFunctions" doc:id="2708a99c-15f3-412c-96d7-b191949c746d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+fun moduleAgeId(name,location,age,salary)={
+	k1: if (age > 60 and age <100) name
+		else if (age>100) age
+		else salary
+}
+
+fun emptyFunction() = {
+	k1: "hello"
+}
+
+---
+{
+	//k1: moduleAgeId (payload.name,payload.location,payload.age,payload.salary),
+	k2: moduleAgeId ("rahul", "usa", 101, 1000),
+	k3: emptyFunction()
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Optional Parameters" doc:id="198ff670-5eb3-4e73-95ca-c0137783bf6e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+fun threeParams(name1, name2, name3 = "default") = 
+name1 ++ " " ++ name2 ++ " " ++ name3
+
+
+---
+
+{
+	"k1": threeParams("It,","is", "MuleSoft"),
+	"k2": threeParams("It", "is")
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
