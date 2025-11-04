@@ -8,19 +8,9 @@ type TYPES = Array<String> {"example": "[\\\"INDIA\\\",\\\"USA\\\",\\\"CHINA\\\"
 
 ]]></types:shape>
     </types:type>
+    <types:type name="Horas" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
   </types:catalog>
-  <types:enrichment select="#7f64018f-db49-42a2-9df1-406c061c38b0">
-    <types:processor-declaration>
-      <types:input-event>
-        <types:message>
-          <types:payload type="TYPES"/>
-        </types:message>
-      </types:input-event>
-      <types:output-event>
-        <types:message>
-          <types:payload type="TYPES"/>
-        </types:message>
-      </types:output-event>
-    </types:processor-declaration>
-  </types:enrichment>
 </types:mule>

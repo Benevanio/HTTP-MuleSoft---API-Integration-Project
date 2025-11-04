@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
 	<flow name="basicTypesAndTypeOf" doc:id="8f797eab-961b-4fe7-a1e4-0a4e915c10ad" >
-		<ee:transform doc:name="basicTypes" doc:id="7f64018f-db49-42a2-9df1-406c061c38b0" >
+		<ee:transform doc:name="Basic Types" doc:id="7a79fb2a-c870-4255-b977-9f1a2b5382b9" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
@@ -39,7 +39,7 @@ output application/json
 output application/json
 ---
 {
-	"k1": typeOf("manju"),
+	"k1": typeOf("Bene"),
 	"k2": typeOf(1),
 	"k3": typeOf([]),
 	"k4": typeOf({}),
